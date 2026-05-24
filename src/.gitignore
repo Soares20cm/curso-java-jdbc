@@ -1,0 +1,13 @@
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### Drivers e Binários Locais ###
+*.jar
+
+### Arquivos do Sistema ###
+.DS_Store
+Thumbs.db
