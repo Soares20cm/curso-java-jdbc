@@ -4,15 +4,17 @@ public class Produto {
     private String codigo;
     private String nome;
     private Double preco;
+    private String marca;
 
     public Produto() {
     }
 
-    public Produto(Long id, String codigo, String nome, Double preco) {
+    public Produto(Long id, String codigo, String nome, Double preco, String marca) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
         this.preco = preco;
+        this.marca = marca;
     }
 
     public Long getId() {
@@ -47,6 +49,14 @@ public class Produto {
         this.preco = preco;
     }
 
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
@@ -54,6 +64,7 @@ public class Produto {
                 ", codigo='" + codigo + '\'' +
                 ", nome='" + nome + '\'' +
                 ", preco=" + preco +
+                ", marca='" + marca + '\'' +
                 '}';
     }
 }

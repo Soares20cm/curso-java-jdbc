@@ -8,31 +8,33 @@ public class ClienteDAO implements IClienteDAO {
 
     @Override
     public Integer cadastrar(Cliente cliente) throws Exception {
-        String sql = "INSERT INTO TB_CLIENTE (NOME, CPF) VALUES (?, ?)";
+        String sql = "INSERT INTO TB_CLIENTE (NOME, CPF, EMAIL) VALUES (?, ?, ?)";
 
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, cliente.getNome());
             stm.setString(2, cliente.getCpf());
+            stm.setString(3, cliente.getEmail());
             return stm.executeUpdate();
         }
     }
 
     @Override
     public Integer atualizar(Cliente cliente) throws Exception {
-        String sql = "UPDATE TB_CLIENTE SET NOME = ? WHERE CPF = ?";
+        String sql = "UPDATE TB_CLIENTE SET NOME = ?, EMAIL = ? WHERE CPF = ?";
 
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement stm = connection.prepareStatement(sql)) {
+            PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, cliente.getNome());
-            stm.setString(2, cliente.getCpf());
+            stm.setString(2, cliente.getEmail());
+            stm.setString(3, cliente.getCpf());
             return stm.executeUpdate();
         }
     }
 
     @Override
     public Cliente buscar(String cpf) throws Exception {
-        String sql = "SELECT ID, NOME, CPF FROM TB_CLIENTE WHERE CPF = ?";
+        String sql = "SELECT ID, NOME, CPF, EMAIL FROM TB_CLIENTE WHERE CPF = ?";
 
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
@@ -49,7 +51,7 @@ public class ClienteDAO implements IClienteDAO {
 
     @Override
     public List<Cliente> buscarTodos() throws Exception {
-        String sql = "SELECT ID, NOME, CPF FROM TB_CLIENTE ORDER BY ID";
+        String sql = "SELECT ID, NOME, CPF, EMAIL FROM TB_CLIENTE ORDER BY ID";
         List<Cliente> clientes = new ArrayList<>();
 
         try (Connection connection = ConnectionFactory.getConnection();
@@ -79,6 +81,7 @@ public class ClienteDAO implements IClienteDAO {
         cliente.setId(rs.getLong("ID"));
         cliente.setNome(rs.getString("NOME"));
         cliente.setCpf(rs.getString("CPF"));
+        cliente.setEmail(rs.getString("EMAIL"));
         return cliente;
     }
 }

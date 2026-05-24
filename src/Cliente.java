@@ -3,14 +3,16 @@ public class Cliente {
     private Long id;
     private String cpf;
     private String nome;
+    private String email;
 
     public Cliente() {
     }
 
-    public Cliente(Long id, String cpf, String nome) {
+    public Cliente(Long id, String cpf, String nome, String email) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
+        this.email = email;
     }
 
     public Long getId() {
@@ -37,12 +39,21 @@ public class Cliente {
         this.nome = nome;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
                 "id=" + id +
                 ", cpf='" + cpf + '\'' +
                 ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

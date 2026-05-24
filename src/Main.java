@@ -10,7 +10,7 @@ public class Main {
     private static void executarCrudCliente() throws Exception {
         IClienteDAO clienteDAO = new ClienteDAO();
 
-        Cliente cliente = new Cliente(null, "12345678901", "Maria Silva");
+        Cliente cliente = new Cliente(null, "12345678901", "Maria Silva", "maria@email.com");
         Cliente clienteExistente = clienteDAO.buscar(cliente.getCpf());
         if (clienteExistente != null) {
             clienteDAO.excluir(clienteExistente);
@@ -22,6 +22,7 @@ public class Main {
         System.out.println(clienteCadastrado);
 
         clienteCadastrado.setNome("Maria Souza");
+        clienteCadastrado.setEmail("maria.souza@email.com");
         clienteDAO.atualizar(clienteCadastrado);
 
         List<Cliente> clientes = clienteDAO.buscarTodos();
@@ -33,7 +34,7 @@ public class Main {
     private static void executarCrudProduto() throws Exception {
         IProdutoDAO produtoDAO = new ProdutoDAO();
 
-        Produto produto = new Produto(null, "A1", "Teclado Mecanico", 250.0);
+        Produto produto = new Produto(null, "A1", "Teclado Mecanico", 250.0, "Logitech");
         Produto produtoExistente = produtoDAO.buscar(produto.getCodigo());
         if (produtoExistente != null) {
             produtoDAO.excluir(produtoExistente);
@@ -46,6 +47,7 @@ public class Main {
 
         produtoCadastrado.setNome("Teclado RGB");
         produtoCadastrado.setPreco(299.9);
+        produtoCadastrado.setMarca("Redragon");
         produtoDAO.atualizar(produtoCadastrado);
 
         List<Produto> produtos = produtoDAO.buscarTodos();

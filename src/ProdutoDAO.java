@@ -8,33 +8,35 @@ public class ProdutoDAO implements IProdutoDAO {
 
     @Override
     public Integer cadastrar(Produto produto) throws Exception {
-        String sql = "INSERT INTO TB_PRODUTO (CODIGO, NOME, PRECO) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO TB_PRODUTO (CODIGO, NOME, PRECO, MARCA) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, produto.getCodigo());
             stm.setString(2, produto.getNome());
             stm.setDouble(3, produto.getPreco());
+            stm.setString(4, produto.getMarca());
             return stm.executeUpdate();
         }
     }
 
     @Override
     public Integer atualizar(Produto produto) throws Exception {
-        String sql = "UPDATE TB_PRODUTO SET NOME = ?, PRECO = ? WHERE CODIGO = ?";
+        String sql = "UPDATE TB_PRODUTO SET NOME = ?, PRECO = ?, MARCA = ? WHERE CODIGO = ?";
 
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, produto.getNome());
             stm.setDouble(2, produto.getPreco());
-            stm.setString(3, produto.getCodigo());
+            stm.setString(3, produto.getMarca());
+            stm.setString(4, produto.getCodigo());
             return stm.executeUpdate();
         }
     }
 
     @Override
     public Produto buscar(String codigo) throws Exception {
-        String sql = "SELECT ID, CODIGO, NOME, PRECO FROM TB_PRODUTO WHERE CODIGO = ?";
+        String sql = "SELECT ID, CODIGO, NOME, PRECO, MARCA FROM TB_PRODUTO WHERE CODIGO = ?";
 
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement stm = connection.prepareStatement(sql)) {
@@ -51,7 +53,7 @@ public class ProdutoDAO implements IProdutoDAO {
 
     @Override
     public List<Produto> buscarTodos() throws Exception {
-        String sql = "SELECT ID, CODIGO, NOME, PRECO FROM TB_PRODUTO ORDER BY ID";
+        String sql = "SELECT ID, CODIGO, NOME, PRECO, MARCA FROM TB_PRODUTO ORDER BY ID";
         List<Produto> produtos = new ArrayList<>();
 
         try (Connection connection = ConnectionFactory.getConnection();
@@ -82,6 +84,7 @@ public class ProdutoDAO implements IProdutoDAO {
         produto.setCodigo(rs.getString("CODIGO"));
         produto.setNome(rs.getString("NOME"));
         produto.setPreco(rs.getDouble("PRECO"));
+        produto.setMarca(rs.getString("MARCA"));
         return produto;
     }
 }
